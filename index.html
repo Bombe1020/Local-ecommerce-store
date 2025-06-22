@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SollyStore - Shop Local</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+  <style> body { font-family: 'Inter', sans-serif; } </style>
+  <!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Bootstrap JS (required for modals, dropdowns, etc.) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body class="bg-white text-gray-800 transition-colors duration-300" id="pageBody">
+
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow fixed w-full z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+    
+    <!-- Centered Nav Links -->
+    <div class="flex justify-center space-x-6 text-sm font-medium w-full md:w-auto order-2 md:order-1">
+      <a href="#home" class="hover:text-indigo-600">Home</a>
+      <a href="#about" class="hover:text-indigo-600">About Us</a>
+      <a href="#products" class="hover:text-indigo-600">Products</a>
+      <a href="#contact" class="hover:text-indigo-600">Contact Us</a>
+    </div>
+    
+    <!-- Cart and Search Right-Aligned -->
+    <div class="flex items-center space-x-4 order-1 md:order-2">
+      <!-- Search Bar -->
+      <input id="searchBar" type="text" placeholder="Search…" class="w-96 border border-gray-300 rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-indigo-200" oninput="filterProducts()" />
+    
+      <!-- Cart Button -->
+      <button onclick="toggleCart()" class="relative bg-indigo-600 text-white px-4 py-2 rounded">
+        Cart <span id="cart-count" class="ml-1 bg-white text-indigo-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+      </button>
+	  <!-- Login Button -->
+<button onclick="openAuthModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">
+  Login
+</button>
+
+    </div>
+	    
+  </div>
+</nav>
+
+
+  <!-- Hero Section -->
+  <section id="home" class="bg-indigo-50 py-20 px-6">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+    
+    <!-- Left: Hero Text -->
+    <div class="lg:w-1/2 text-center lg:text-left animate__animated animate__fadeInLeft">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-900 leading-tight mb-4">
+        Build Better with Solly
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-6">
+        E-commerce made local, fast, and proudly South African.
+      </p>
+      <a href="#products">
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full transition">
+          Browse Products
+        </button>
+      </a>
+    </div>
+
+<div class="lg:w-1/2 animate__animated animate__fadeInRight">
+  <img src="more.jpg" alt="Top Seller" class="rounded shadow-lg w-full" />
+</div>
+
+
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+  <!-- Cart Sidebar -->
+  <div id="cartSidebar" class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg border-l border-gray-200 z-50 p-6 overflow-y-auto transform translate-x-full transition-transform duration-300">
+    <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+    <ul id="cart-items" class="space-y-4"></ul>
+    <div class="mt-6 border-t pt-4">
+      <p class="font-semibold">Total: R<span id="cart-total">0.00</span></p>
+      <button onclick="proceedToCheckout()" class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Checkout</button>
+    </div>
+  </div>
+
+
+  <!-- Product Section -->
+<section id="products" class="bg-gray-50 py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-indigo-800 mb-10 animate__animated animate__fadeInUp">Shop Local Favorites</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- Product Card Template -->
+	  
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Biltong Pack (100g)" data-price="45.00">
+        <img src="Biltong.png" alt="Biltong" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Biltong Pack (100g)</h3>
+        <p class="text-green-700 font-bold mb-2">R45.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Droëwors (100g)" data-price="50.00">
+        <img src="Droewors.jpg" alt="Droëwors" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Droëwors (100g)</h3>
+        <p class="text-green-700 font-bold mb-2">R50.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Rooibos Tea (40 bags)" data-price="35.00">
+        <img src="Rooibos.jpg" alt="Rooibos" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Rooibos Tea (40 bags)</h3>
+        <p class="text-green-700 font-bold mb-2">R35.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Mrs. Ball’s Chutney" data-price="30.00">
+        <img src="chutney.jpg" alt="Chutney" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Mrs. Ball’s Chutney</h3>
+        <p class="text-green-700 font-bold mb-2">R30.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Shweshwe Tote Bag" data-price="180.00">
+        <img src="Bag.jpg" alt="Tote Bag" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Shweshwe Tote Bag</h3>
+        <p class="text-green-700 font-bold mb-2">R180.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Zulu Beaded Bracelet" data-price="90.00">
+        <img src="Zulu.jpg" alt="Bracelet" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Zulu Beaded Bracelet</h3>
+        <p class="text-green-700 font-bold mb-2">R90.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Stay Wild T-shirt (Black)" data-price="310.00">
+        <img src="wild.jpg" alt="T-shirt" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Stay Wild T-shirt (Black)</h3>
+        <p class="text-green-700 font-bold mb-2">R310.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Leather Sling Bag" data-price="1100.00">
+        <img src="Leather.jpg" alt="Sling Bag" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Leather Sling Bag</h3>
+        <p class="text-green-700 font-bold mb-2">R1,100.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+		
+      </div>
+
+      <div class="bg-white rounded shadow p-4 text-center animate__animated animate__zoomIn" data-name="Noju Raw Honey (Gift Jar)" data-price="300.00">
+        <img src="honey.jpg" alt="Honey" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="font-semibold text-lg">Noju Raw Honey (Gift Jar)</h3>
+        <p class="text-green-700 font-bold mb-2">R300.00</p>
+        <button onclick="addToCart(this)" class="bg-indigo-600 text-white px-4 py-2 rounded w-full hover:bg-indigo-700 transition">Add to Cart</button>
+      </div>
+
+    </div>
+	<div class="text-center mt-10">
+  <button onclick="loadMoreProducts()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full transition">
+    Load More Products
+  </button>
+</div>
+
+  </div>
+</section>
+
+
+  <!-- Contact Footer -->
+  <footer id="contact" class="bg-indigo-900 text-white py-10 text-center">
+    <h3 class="text-xl font-semibold mb-2">Let's Work Together</h3>
+    <p class="text-sm mb-4">Email: solly@sollyshop.co.za • Instagram: @SollyStore</p>
+    <p class="text-xs opacity-60">© 2025 SollyStore. Built proudly in South Africa.</p>
+	<div class="mt-6 flex justify-center space-x-4">
+  <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="hover:scale-110 transform transition duration-300">
+    <img src="facebook.svg" alt="Facebook" class="w-6 h-6" />
+  </a>
+  <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="hover:scale-110 transform transition duration-300">
+    <img src="instagram.svg" alt="Instagram" class="w-6 h-6" />
+  </a>
+  <a href="https://twitter.com" target="_blank" aria-label="Twitter" class="hover:scale-110 transform transition duration-300">
+    <img src="twitter.svg" alt="Twitter" class="w-6 h-6" />
+  </a>
+</div>
+  </footer>
+  
+  <script>
+  let cart = JSON.parse(localStorage.getItem("sollyCart")) || [];
+
+  function toggleCart() {
+    document.getElementById("cartSidebar").classList.toggle("translate-x-full");
+  }
+
+  function updateCartUI() {
+    const cartList = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const cartTotal = document.getElementById("cart-total");
+
+    cartList.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price * item.qty;
+      cartList.innerHTML += `
+        <li class="border p-3 rounded">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="font-semibold">${item.name}</p>
+              <p class="text-sm text-gray-500">R${item.price.toFixed(2)}</p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="changeQty(${index}, -1)" class="px-2 bg-gray-200 rounded">-</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${index}, 1)" class="px-2 bg-gray-200 rounded">+</button>
+              <button onclick="removeItem(${index})" class="ml-2 text-red-500">×</button>
+            </div>
+          </div>
+        </li>`;
+    });
+
+    cartCount.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
+    cartTotal.textContent = total.toFixed(2);
+    localStorage.setItem("sollyCart", JSON.stringify(cart));
+  }
+
+  function addToCart(button) {
+    const card = button.closest("div[data-name]");
+    const name = card.getAttribute("data-name");
+    const price = parseFloat(card.getAttribute("data-price"));
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    updateCartUI();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+  }
+
+  function changeQty(index, delta) {
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) cart.splice(index, 1);
+    updateCartUI();
+  }
+
+  function proceedToCheckout() {
+    if (cart.length === 0) return alert("Your cart is empty.");
+    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0).toFixed(2);
+    const productNames = cart.map(i => `${i.qty}x ${i.name}`).join(", ");
+    const url = new URL("https://www.payfast.co.za/eng/process");
+    url.searchParams.set("merchant_id", "10000100");
+    url.searchParams.set("merchant_key", "46f0cd694581a");
+    url.searchParams.set("amount", total);
+    url.searchParams.set("item_name", productNames);
+    url.searchParams.set("return_url", "https://yourstore.com/success");
+    url.searchParams.set("cancel_url", "https://yourstore.com/cancel");
+    url.searchParams.set("notify_url", "https://yourstore.com/notify");
+    window.location.href = url.toString();
+  }
+
+  // On page load
+  updateCartUI();
+</script>
+<script>
+  let currentSlide = 0;
+  function slideCarousel(dir) {
+    const carousel = document.getElementById("carousel");
+    const totalSlides = carousel.children.length;
+    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  function addToCartFromData(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    updateCartUI();
+  }
+</script>
+<!-- Auth Modal -->
+<div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex justify-center items-center">
+  <div class="bg-white w-96 rounded shadow-lg p-6 relative animate__animated animate__zoomIn">
+    <button onclick="closeAuthModal()" class="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+    <div class="flex justify-center mb-4 space-x-4">
+      <button onclick="switchAuthMode('login')" class="auth-tab text-indigo-700 font-semibold">Login</button>
+      <button onclick="switchAuthMode('register')" class="auth-tab text-gray-500">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-4">
+      <input type="email" placeholder="Email" required class="w-full border px-3 py-2 rounded" />
+      <input type="password" placeholder="Password" required class="w-full border px-3 py-2 rounded" />
+      <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">Log In</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="space-y-4 hidden">
+      <input type="text" placeholder="Name" required class="w-full border px-3 py-2 rounded" />
+      <input type="email" placeholder="Email" required class="w-full border px-3 py-2 rounded" />
+      <input type="password" placeholder="Password" required class="w-full border px-3 py-2 rounded" />
+      <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Sign Up</button>
+    </form>
+  </div>
+</div>
+<script>
+  // Show/Hide modal
+  function openAuthModal() {
+    document.getElementById("authModal").classList.remove("hidden");
+  }
+  function closeAuthModal() {
+    document.getElementById("authModal").classList.add("hidden");
+  }
+
+  // Switch tabs
+  function switchAuthMode(mode) {
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const tabs = document.querySelectorAll(".auth-tab");
+
+    tabs.forEach(tab => tab.classList.remove("text-indigo-700", "font-semibold"));
+    if (mode === "login") {
+      loginForm.classList.remove("hidden");
+      registerForm.classList.add("hidden");
+      tabs[0].classList.add("text-indigo-700", "font-semibold");
+    } else {
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+      tabs[1].classList.add("text-indigo-700", "font-semibold");
+    }
+  }
+
+  // Handle Registration
+  document.getElementById("registerForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const [name, email, password] = [...e.target.elements].map(i => i.value.trim());
+    if (!name || !email || !password) return alert("Please fill in all fields.");
+    localStorage.setItem("sollyUser", JSON.stringify({ name, email, password }));
+    alert("Registered! You can now log in.");
+    switchAuthMode('login');
+    e.target.reset();
+  });
+
+  // Handle Login
+  document.getElementById("loginForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const [email, password] = [...e.target.elements].map(i => i.value.trim());
+    const user = JSON.parse(localStorage.getItem("sollyUser")) || {};
+    if (user.email === email && user.password === password) {
+      localStorage.setItem("sollyLoggedIn", "true");
+      localStorage.setItem("sollyName", user.name);
+      closeAuthModal();
+      showWelcome(user.name);
+    } else {
+      alert("Incorrect email or password.");
+    }
+  });
+
+  // Show welcome message in nav
+  function showWelcome(name) {
+    const nav = document.querySelector("nav .space-x-6");
+    if (!nav) return;
+    nav.innerHTML = `
+      <span class="text-indigo-800 font-semibold">Welcome, ${name}</span>
+      <button onclick="logout()" class="text-sm text-red-500 ml-4 hover:underline">Logout</button>
+    `;
+  }
+
+  function logout() {
+    localStorage.removeItem("sollyLoggedIn");
+    localStorage.removeItem("sollyName");
+    location.reload();
+  }
+
+  // Auto-login
+  document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("sollyLoggedIn") === "true") {
+      const name = localStorage.getItem("sollyName");
+      showWelcome(name);
+    }
+  });
+</script>
+
+</body>
+</html>
